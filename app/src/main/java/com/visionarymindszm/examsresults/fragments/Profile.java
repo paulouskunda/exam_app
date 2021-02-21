@@ -6,15 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.visionarymindszm.examsresults.R;
 import com.visionarymindszm.examsresults.utils.PupilSessionManager;
-
 import java.util.HashMap;
+
+/**
+ * This is a Profile fragment
+ */
 
 public class Profile extends Fragment {
     TextView pupilName, schoolName, intakeYear;
@@ -32,12 +33,18 @@ public class Profile extends Fragment {
         return  view;
     }
 
+    /**
+     * Initialize the object, get the
+     */
     private void init() {
         final PupilSessionManager sessionManager = new PupilSessionManager(requireContext());
         HashMap<String, String> pupils = sessionManager.getUserDetails();
-        pupilName.setText(pupils.get(PupilSessionManager.KEY_PUPIL_NAME));
-        schoolName.setText(pupils.get(PupilSessionManager.KEY_PUPIL_SCHOOL));
-        intakeYear.setText(pupils.get(PupilSessionManager.KEY_PUPIL_INTAKE));
+        String pupilName_ = "Pupil Name: "+pupils.get(PupilSessionManager.KEY_PUPIL_NAME);
+        String schoolName_ =  "School: "+pupils.get(PupilSessionManager.KEY_PUPIL_SCHOOL);
+        String intakeYear_ = "Intake: "+pupils.get(PupilSessionManager.KEY_PUPIL_INTAKE);
+        pupilName.setText(pupilName_);
+        schoolName.setText(schoolName_);
+        intakeYear.setText(intakeYear_);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ public class Results extends Fragment {
     TextView subject_results,grade_results;
     Button view_results_button;
     final String TAG = "RESULT_FRAGMENT";
+    ProgressBar progressBarResults;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,15 +48,21 @@ public class Results extends Fragment {
         grade_results = view.findViewById(R.id.grade_results);
         view_results_button = view.findViewById(R.id.view_results_button);
         results_card.setVisibility(View.GONE);
+        progressBarResults = view.findViewById(R.id.progressBarResults);
         view_results_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 check_results();
             }
         });
-        return  view;    }
+        return  view;
+    }
 
+    /**
+     * Check the results from the server function
+     */
     private void check_results() {
+        progressBarResults.setVisibility(View.VISIBLE);
         final PupilSessionManager sessionManager = new PupilSessionManager(requireContext());
         HashMap<String, String> pupils = sessionManager.getUserDetails();
 
@@ -62,14 +70,15 @@ public class Results extends Fragment {
         final String pupil_intake = pupils.get(PupilSessionManager.KEY_PUPIL_INTAKE);
 
 
-        // query db
+        // Get the response from the server
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST,
-                Utils.LOGIN_URL,
+                Utils.GET_RESULTS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressBarResults.setVisibility(View.GONE);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             System.out.println(jsonObject.getString("error"));
@@ -86,7 +95,7 @@ public class Results extends Fragment {
                                 }
 
                             }else{
-
+                                    subject_results.setText("Your results haven't been uploaded yet");
                             }
                         } catch (JSONException e) {
                             Log.d(TAG, "Error", e);
@@ -97,12 +106,10 @@ public class Results extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         error.printStackTrace();
                         Log.d(TAG, "Error on response", error);
                         System.out.println(error.getCause().toString());
                         System.out.println(error.getMessage());
-
                     }
                 }
         ){
@@ -116,7 +123,5 @@ public class Results extends Fragment {
         };
 
         RequestHandler.getInstance(getContext()).addRequestQueue(stringRequest);
-
-
     }
 }

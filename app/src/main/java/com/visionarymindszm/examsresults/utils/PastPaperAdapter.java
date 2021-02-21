@@ -6,24 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.visionarymindszm.examsresults.R;
-
 import java.util.List;
+
+/**
+ * PastPaperAdapter holds the recyclerView actions, Extends {@link  RecyclerView.Adapter }class
+ *
+ *
+ */
 
 public class PastPaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<PastPaperModel> pastPaperModelList;
-
     private Context context;
-
     private RecyclerViewClickListener mListener;
-
-//    private
 
     public PastPaperAdapter(List<PastPaperModel> pastPaperModelList, Context context, RecyclerViewClickListener mListener) {
         this.pastPaperModelList = pastPaperModelList;
@@ -46,6 +45,7 @@ public class PastPaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         pastPaperViewHolder.examPaperYear.setText(pastPaperModelList.get(position).getPaper_year());
     }
 
+    // return the size of the List
     @Override
     public int getItemCount() {
         return pastPaperModelList.size();
@@ -68,15 +68,19 @@ public class PastPaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             cardView.setOnClickListener(this);
         }
 
+        // override the onclick action from the OnClick Interface
+        // then attach a listener to the row (cardView) and pass the current
+        // adapterPosition => 0 ... n
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.card_view){
-                Toast.makeText(context, "Well", Toast.LENGTH_LONG).show();
                 mListener.onRowClick(cardView, getAdapterPosition());
             }
         }
     }
 
+    // Create an interface class to listen to the actions from the clicks and hold them
+    // through the onClick action.
     public interface RecyclerViewClickListener {
         void onRowClick(View view, int position);
     }

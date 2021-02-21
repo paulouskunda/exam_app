@@ -29,16 +29,13 @@ import com.visionarymindszm.examsresults.screens.ViewPaperActivity;
 import com.visionarymindszm.examsresults.utils.PastPaperAdapter;
 import com.visionarymindszm.examsresults.utils.PastPaperModel;
 import com.visionarymindszm.examsresults.utils.Utils;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Home extends Fragment {
     RecyclerView recyclerView;
@@ -48,7 +45,6 @@ public class Home extends Fragment {
     public static final String PAST_PAPER_KEY_URL = "paper_url";
     ConstraintLayout home_fragment;
     private List<PastPaperModel> pastPaperModelList;
-
     PastPaperAdapter.RecyclerViewClickListener listener;
     EditText past_paper_search;
     private String TAG = "HomeFragment";
@@ -61,7 +57,6 @@ public class Home extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_exam);
         home_fragment = view.findViewById(R.id.home_fragment);
         past_paper_search = view.findViewById(R.id.past_paper_search);
-
         past_paper_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,12 +67,12 @@ public class Home extends Fragment {
                     intent.putExtra(SEARCH_QUERY, past_paper_search.getText().toString());
                     startActivity(intent);
                     past_paper_search.clearFocus();
-//                    past_paper_search.setText(null);
                 }
 
             }
         });
 
+        // open the PDF
         listener = new PastPaperAdapter.RecyclerViewClickListener() {
             @Override
             public void onRowClick(View view, int position) {

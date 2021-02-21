@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.snackbar.Snackbar;
 import com.visionarymindszm.examsresults.MainActivity;
 import com.visionarymindszm.examsresults.R;
 import com.visionarymindszm.examsresults.utils.HoldVariables;
@@ -102,10 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                                     // replace this with shared preference
                                     JSONObject dataObject = dataArray.getJSONObject(i);
 
-                                    HoldVariables.pupil_id = pupil_id;
-                                    HoldVariables.school_name = dataObject.getString("pupil_school");
-                                    HoldVariables.pupil_name = dataObject.getString("pupil_name");
-                                    HoldVariables.pupil_intake = dataObject.getString("pupil_intake");
+                                    //
                                     pupilSessionManager.createPupilSession(pupil_id,
                                             dataObject.getString("pupil_name"),
                                             dataObject.getString("pupil_school"),
@@ -132,8 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         error.printStackTrace();
                         Log.d(TAG, "Error on response", error);
-                        System.out.println(error.getCause().toString());
-                        System.out.println(error.getMessage());
+                        Utils.showSnackBar(login_layout, "Ensure you have connection", 0);
 
                     }
                 }

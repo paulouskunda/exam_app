@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+// TODO: 2/21/21 Clean the static memory leaks, it might be a problem in Android 7 and below
 public class RequestHandler {
 
     private static RequestHandler instance;
@@ -32,11 +33,8 @@ public class RequestHandler {
         if (instance == null){
             instance = new RequestHandler(context);
         }
-
         return instance;
     }
-
-
     public RequestQueue getRequestQueue(){
         if (requestQueue == null){
             // getApplicationContext() is key, it keeps you from leaking the

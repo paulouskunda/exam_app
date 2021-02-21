@@ -1,8 +1,11 @@
 package com.visionarymindszm.examsresults.utils;
 
 import android.view.View;
-
 import com.google.android.material.snackbar.Snackbar;
+
+/**
+ * Utils is a class that ho
+ */
 
 public class Utils {
     // use this for physical ensure you on the same network
@@ -18,8 +21,19 @@ public class Utils {
     public static final String PDF_NAME = "pdf_name";
     public static final String PDF_YEAR = "pdf_year";
 
-
+    /**
+     *
+     * @param view_name: Layout to render the snackBack on
+     * @param message: The message to be displayed
+     * @param length: Length of the message => {-2, -1, 0} valid parameters
+     */
     public static void showSnackBar(View view_name, String message, int length){
-        Snackbar.make(view_name, message, Snackbar.LENGTH_LONG).show();
+        if (length == -1) {
+            Snackbar.make(view_name, message, Snackbar.LENGTH_SHORT).show();
+        }else if (length == 0){
+            Snackbar.make(view_name, message, Snackbar.LENGTH_LONG).show();
+        }else if (length == -2){
+            Snackbar.make(view_name, message, Snackbar.LENGTH_INDEFINITE).show();
+        }
     }
 }
