@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class Utils {
     // use this for physical ensure you on the same network
     // check for the current IP address for the computer (ifconfig or ip addr linux and ipconfig windows)
-    public static final String  ROOT_URL = "http://192.168.8.100/exam_api/";
+    public static final String  ROOT_URL = "http://192.168.43.229/exam_api/";
    // private static final String  ROOT_URL = "http://10.0.2.2/exam_api/"; // use this for the emulator
     public static final String LOGIN_URL = ROOT_URL+"?apicall=login";
     public static final String GET_TOP_TEN_PAST_PAPER = ROOT_URL+"?apicall=topTen";

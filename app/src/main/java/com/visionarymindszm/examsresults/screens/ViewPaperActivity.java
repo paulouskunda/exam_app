@@ -1,5 +1,4 @@
-package com.visionarymindszm.examsresults.screens;
-
+package  com.visionarymindszm.examsresults.screens;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -29,23 +28,8 @@ import com.visionarymindszm.examsresults.utils.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Objects;
 
-import javax.net.ssl.HttpsURLConnection;
 
-/**
- * ViewPaperActivity, this is an activity to download or view
- * The PDF from the server and onto the phone
- */
 public class ViewPaperActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
         OnPageErrorListener {
     PDFView pdfView;
@@ -80,6 +64,7 @@ public class ViewPaperActivity extends AppCompatActivity implements OnPageChange
         Log.d(TAG, localPath.toString());
         // load the download file on to the screen
 //        pdfView.fromUri(Uri.parse("file://"+localPath.toString())).load();
+        displayFromUri(Uri.parse("file://"+localPath.toString()));
 
     }
     private void displayFromUri(Uri uri) {
@@ -96,7 +81,7 @@ public class ViewPaperActivity extends AppCompatActivity implements OnPageChange
     }
 
     /**
-     * Download the file
+     *
      * @param url: Link to the file destination
      */
     public void downloadFile(String url) {
@@ -109,7 +94,6 @@ public class ViewPaperActivity extends AppCompatActivity implements OnPageChange
                 Utils.showSnackBar(view_paper_layout, "Loaded from files", -1);
             } else {
 
-                // create a download Manager object
                 DownloadManager downloadManager = (DownloadManager) getApplication().getSystemService(Context.DOWNLOAD_SERVICE);
 
                 Uri downloadUri = Uri.parse(url);
@@ -120,17 +104,14 @@ public class ViewPaperActivity extends AppCompatActivity implements OnPageChange
                         DownloadManager.Request.NETWORK_WIFI
                                 | DownloadManager.Request.NETWORK_MOBILE)
                         .setAllowedOverRoaming(false).setTitle("Downloading Paper")
-                        .setDescription(name+"-"+year+".pdf")
+                        .setDescription("Something useful.")
                         // save it to the downloads folder in a custom fold called exams
                         .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Exams/" + name + "-" + year + ".pdf");
                 Log.d(TAG, "" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Exams/" + name + "-" + year + ".pdf");
-                Utils.showSnackBar(view_paper_layout, "The file is saved to Download/Exams/"+ name + "-" + year + ".pdf", -1);
-                // allocate the downloaded path and pass to the localPath
                 localPath = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Exams/" + name + "-" + year + ".pdf");
                 downloadManager.enqueue(request);
+
             }
-            // once the download is done or we got from the file, open the pdf
-            displayFromUri(Uri.parse("file://"+localPath.toString()));
 
         }catch (Exception e){
             Log.d(TAG, "Error ", e);
