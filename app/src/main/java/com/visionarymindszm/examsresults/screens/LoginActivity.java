@@ -12,17 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.snackbar.Snackbar;
 import com.visionarymindszm.examsresults.MainActivity;
 import com.visionarymindszm.examsresults.R;
 import com.visionarymindszm.examsresults.utils.HoldVariables;
 import com.visionarymindszm.examsresults.utils.RequestHandler;
+import com.visionarymindszm.examsresults.utils.PupilSessionManager;
 import com.visionarymindszm.examsresults.utils.Utils;
 
 import org.json.JSONArray;
@@ -38,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     ConstraintLayout login_layout;
     private String TAG = getClass().getName();
+    PupilSessionManager pupilSessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBarLogin.setVisibility(View.INVISIBLE);
         loginButton = findViewById(R.id.loginButton);
         login_layout = findViewById(R.id.login_layout);
+        pupilSessionManager = new PupilSessionManager(getApplicationContext());
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +106,13 @@ public class LoginActivity extends AppCompatActivity {
                                     HoldVariables.school_name = dataObject.getString("pupil_school");
                                     HoldVariables.pupil_name = dataObject.getString("pupil_name");
                                     HoldVariables.pupil_intake = dataObject.getString("pupil_intake");
+                                    pupilSessionManager.createPupilSession(pupil_id,
+                                            dataObject.getString("pupil_name"),
+                                            dataObject.getString("pupil_school"),
+                                            dataObject.getString("pupil_intake"));
+
                                 }
+
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             }else{

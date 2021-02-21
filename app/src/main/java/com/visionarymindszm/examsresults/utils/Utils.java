@@ -12,7 +12,7 @@ public class Utils {
     public static final String LOGIN_URL = ROOT_URL+"?apicall=login";
     public static final String GET_TOP_TEN_PAST_PAPER = ROOT_URL+"?apicall=topTen";
     public static final String SEARCH_PAPER = ROOT_URL +"?apicall=searchPastPaper";
-
+    public static final String GET_RESULTS = ROOT_URL + "?apicall=check_results";
     // Extra
     public static final String PDF_URL = "pdf_url";
     public static final String PDF_NAME = "pdf_name";

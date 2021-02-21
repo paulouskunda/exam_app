@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.visionarymindszm.examsresults.screens.LoginActivity;
-import com.visionarymindszm.examsresults.utils.HoldVariables;
+import com.visionarymindszm.examsresults.utils.PupilSessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,12 +16,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // replace with shared preference
+        PupilSessionManager sessionManager = new PupilSessionManager(getApplicationContext());
 
-        if (HoldVariables.pupil_id.equals("null")){
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        // if the  user is activate
+        // if this returns true go to login
+        if (sessionManager.checkLogin())
             finish();
-        }
+
 
         setUpNavigation();
 
