@@ -16,8 +16,6 @@ View results when uploaded.
 ![Login Screen](https://github.com/paulouskunda/exam_app/blob/master/app/screenshots/login_screen.png)
 #### Home Screenshot
 ![Home Screen](https://github.com/paulouskunda/exam_app/blob/master/app/screenshots/home_screen.png)
-#### Read/Review Paper Screenshot
-![Read Paper](https://github.com/paulouskunda/exam_app/blob/master/app/screenshots/read_past_paper.png)
 #### Profile Screenshot 
 ![Profile Screen](https://github.com/paulouskunda/exam_app/blob/master/app/screenshots/profile_screen.png)
 #### Results Screenshot
